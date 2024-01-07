@@ -1,3 +1,4 @@
+package robot-name
 import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.util.Random
