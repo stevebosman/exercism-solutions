@@ -10,7 +10,7 @@ main () {
         exit 1
       fi
       local grains=$(( 1<<square ))
-      echo $(printf "%u" $grains )
+      printf "%u" "$grains"
   fi
 }
 

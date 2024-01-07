@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 main () {
     if (( $# != 1 )) || [[ -n "${1//[0-9]}" ]]; then
         >&2 echo "Usage: leap.sh <year>"

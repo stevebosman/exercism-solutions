@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 main () {
-    date=$1
     epoch=$(date -d"$1" +%s)
     epoch=$(( epoch + 1000000000 ))
 

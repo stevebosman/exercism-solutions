@@ -17,7 +17,7 @@ search () {
         fi
 
         if [[ ( $searchLine == *$pattern* && $WHOLE_LINE == 0 ) \
-            || ( $searchLine == $pattern && $WHOLE_LINE == 1 ) ]]
+            || ( $searchLine == "$pattern" && $WHOLE_LINE == 1 ) ]]
         then
             local lineMatches=1
         else
@@ -77,7 +77,7 @@ main () {
             if (( argIndex != $# )); then
                 ALWAYS_FILE_NAME=1
             fi
-            search "$pattern" $value
+            search "$pattern" "$value"
         fi
     done
 }

@@ -22,9 +22,12 @@ main () {
         exit 1
     fi
 
-    local x=$(bc <<< "scale=5; ${1#-} - 0.001")
-    local y=$(bc <<< "scale=5; ${2#-} - 0.001")
-    local rf=$(bc <<< "scale=0; $x*$x + $y*$y")
+    local x
+    x=$(bc <<< "scale=5; ${1#-} - 0.001")
+    local y
+    y=$(bc <<< "scale=5; ${2#-} - 0.001")
+    local rf
+    rf=$(bc <<< "scale=0; $x*$x + $y*$y")
     local r=${rf%%.*}
 
     # echo "($x,$y): $rf $r"

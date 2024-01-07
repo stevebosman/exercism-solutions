@@ -5,8 +5,7 @@ main () {
     local length=${#word}
     local reverse=""
     for ((i = length - 1; i >= 0; i--)); do
-        local char="${word:i:1}"
-        reverse+=$char
+        reverse+=${word:i:1}
     done
     echo "$reverse"
 }

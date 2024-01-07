@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
 main () {
-    ALPHABET="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     STRING=${1^^}
     CHARS=${STRING//[^A-Z]/}
-    for (( i=0; i<${#ALPHABET}; i++ )); do
-        c="${ALPHABET:$i:1}"
+    for c in {A..Z}; do
         if [[ "$CHARS" != *"$c"* ]]; then
             echo "false"
-            return
+            exit 0
         fi
     done
     echo "true"

@@ -6,11 +6,11 @@ main () {
 
     cipher=$(echo "${word//[ ,.]/}" | tr 'abcdefghijklmnopqrstuvwxyz' 'zyxwvutsrqponmlkjihgfedcba')
     if [[ "$method" == "encode" ]]; then
-        result=$(echo "$cipher" | sed 's/.\{5\}/& /g')
+        result=$(echo "$cipher" | sed 's/.\{5\}/& /g' | sed 's/ $//g')
     else
         result=$cipher
     fi
-    echo $result
+    echo "${result}"
 }
 
 # call main with all of the positional arguments

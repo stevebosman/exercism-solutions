@@ -5,6 +5,7 @@ exitWithInvalidArguments () {
     >&2 echo "usage: clock.sh h m [{+|-} delta]"
     exit 1
 }
+
 main () {
     if (( $# != 2 )) && (( $# != 4 )); then
         exitWithInvalidArguments "wrong number of arguments"
@@ -16,19 +17,17 @@ main () {
         exitWithInvalidArguments "delta must be numeric"
     fi
     local MINUTES_IN_DAY=1440
-    local raw=$(( ($1 * 60 + $2) ))
+    local raw=$(( $1 * 60 + $2 ))
     if [[ $3 == "+" ]]; then
         raw=$(( raw + $4 ))
     elif [[ $3 == "-" ]]; then
         raw=$(( raw - $4 ))
     fi
     while (( raw < 0 )); do
-    raw=$(( raw + MINUTES_IN_DAY ))
+        raw=$(( raw + MINUTES_IN_DAY ))
     done
     raw=$(( raw % MINUTES_IN_DAY ))
-    local h=$(( raw / 60 ))
-    local m=$(( raw % 60 ))
-    printf "%02i:%02i" $h $m
+    printf "%02i:%02i" $(( raw / 60 )) $(( raw % 60 ))
 }
 
 main "$@"

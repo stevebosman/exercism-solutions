@@ -15,7 +15,7 @@ fi
 DIFF=0
 if [[ "$DNA1" != "$DNA2" ]]; then
   for (( i=0; i<${#DNA1}; i++ )); do
-    if [[ "${DNA1:$i:1}" != "${DNA2:$i:1}" ]]; then
+    if [[ "${DNA1:i:1}" != "${DNA2:i:1}" ]]; then
       DIFF=$(( $DIFF + 1 ))
     fi
   done

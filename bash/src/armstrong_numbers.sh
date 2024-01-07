@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 main () {
-    NUMBER=($1)
+    NUMBER=("$1")
     TOTAL=0
     if (( NUMBER > 0)); then
         LEN=${#NUMBER}

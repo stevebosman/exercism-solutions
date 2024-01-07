@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 main () {
     local word=$(sed 's/\s//g' <<< "$1")
     if [[ ! $word =~ ^[0-9]+$ ]]; then
@@ -15,7 +16,7 @@ main () {
     local total=0
     for ((i = 1; i <= length; i++)); do
         local char=${word:length-i:1}
-        local val=$(( $char ))
+        local val=$(( char ))
         if (( i%2 == 0 )); then
             (( val*=2 ))
             if (( val>9 )); then
