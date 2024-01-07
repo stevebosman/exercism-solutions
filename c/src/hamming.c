@@ -1,7 +1,6 @@
 #include "hamming.h"
-#include <ctype.h>
-#include <stdbool.h>
 #include <string.h>
+
 int compute(const char* code1, const char* code2) {
     int diff = -1;
     int len1 = strlen(code1);

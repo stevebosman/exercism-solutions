@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdint.h>
 
-uint64_t square(uint8_t s) {
-    return pow(2.0, s - 1);
+uint64_t square(uint8_t index) {
+    return (index > 0 && index < 65) ? pow(2.0, index - 1) : 0;
 }
 
 uint64_t total() {
