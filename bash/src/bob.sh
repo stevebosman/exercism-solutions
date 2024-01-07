@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 hasUpper () {
     STRING=${1}
-    if [[ "${STRING}" =~ ^.*[A-Z]+.*$ ]]; then
+    if [[ "${STRING}" == *[[:upper:]]* ]]; then
         return 0
     else
         return 1
@@ -10,7 +11,7 @@ hasUpper () {
 
 hasLower () {
     STRING=${1}
-    if [[ "${STRING}" =~ ^.*[a-z]+.*$ ]]; then
+    if [[ "${STRING}" == *[[:lower:]]* ]]; then
         return 0
     else
         return 1
@@ -28,7 +29,7 @@ isAllCaps () {
 
 isQuestion () {
     STRING=${1}
-    if [[ "$STRING" =~ ^.*\?$ ]]; then
+    if [[ "$STRING" =~ \?$ ]]; then
         return 0
     else
         return 1

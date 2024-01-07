@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 main () {
-    local word=$(sed 's/\s//g' <<< "$1")
+    local word
+    word=$(sed 's/\s//g' <<< "$1")
     if [[ ! $word =~ ^[0-9]+$ ]]; then
         echo "false"
         exit 0

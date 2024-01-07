@@ -13,11 +13,11 @@ main () {
         echo "There must be two numeric parameters"
         exit 1
     fi
-    if ! isNumeric $1; then
+    if ! isNumeric "$1"; then
         echo "First parameter must be numeric"
         exit 1
     fi
-    if ! isNumeric $2; then
+    if ! isNumeric "$2"; then
         echo "Second parameter must be numeric"
         exit 1
     fi
