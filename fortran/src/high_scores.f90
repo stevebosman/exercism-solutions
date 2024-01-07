@@ -22,25 +22,17 @@ end function
 
 function personalTopThree(score_list)
   integer, dimension(:), intent(IN) :: score_list
-  integer, dimension(size(score_list)) :: scores
   integer, dimension(3) :: personalTopThree
-  integer :: i, l, sz
+  logical :: mask(size(score_list))
+  integer :: i, l
 
-  scores = score_list
-  sz = size(scores)
-
-  ! only after the top 3 so the performance doesn't matter too much
-  do i = 1, min(3, sz)
-    l = MAXLOC(scores, DIM=1)
-    personalTopThree(i) = scores(l)
-    scores(l) = -9999
+  personalTopThree = 0
+  mask = .true.
+  do i = 1, min(3, size(score_list))
+    l = maxloc(score_list, dim=1, mask=mask)
+    personalTopThree(i) = score_list(l)
+    mask(l) = .false.
   end do
-
-  ! fill in the rest of the array
-  do i = min(3, sz) + 1, 3
-    personalTopThree(i) = 0
-  end do
-
 end function
 
 end module

@@ -2,46 +2,53 @@ module bob
   implicit none
 contains
 
-  function countNonWhitespace(statement)
-    integer :: countNonWhitespace
+  function hasNonWhitespace(statement)
+    logical :: hasNonWhitespace
     character(len=*), intent(in) :: statement
+    character(1) :: c
     integer :: j
 
-    countNonWhitespace = 0
-    do j = 1, len(statement)
-      if (statement(j:j) .ne. " ") then
-        countNonWhitespace = countNonWhitespace + 1
+    hasNonWhitespace = .false.
+    do j=1,len(statement)
+      c = statement(j:j)
+      if (c /= ' ') then
+        hasNonWhitespace = .true.
+        exit
       end if
     end do
-  end function countNonWhitespace
+  end function hasNonWhitespace
 
-  function countLower(statement)
-    integer :: countLower
+  function hasLower(statement)
+    logical :: hasLower
     character(len=*), intent(in) :: statement
+    character(1) :: c
     integer :: j
 
-    countLower = 0
-    do j = 1, len(statement)
-      select case(statement(j:j))
-        case("a":"z")
-          countLower = countLower + 1
-      end select
+    hasLower = .false.
+    do j=1,len(statement)
+      c = statement(j:j)
+      if ('a' <= c .and. c <= 'z') then
+        hasLower = .true.
+        exit
+      end if
     end do
-  end function countLower
+  end function hasLower
 
- function countUpper(statement)
-    integer :: countUpper
+  function hasUpper(statement)
+    logical :: hasUpper
     character(len=*), intent(in) :: statement
+    character(1) :: c
     integer :: j
 
-    countUpper = 0
-    do j = 1, len(statement)
-      select case(statement(j:j))
-        case("A":"Z")
-          countUpper = countUpper + 1
-      end select
+    hasUpper = .false.
+    do j=1,len(statement)
+      c = statement(j:j)
+      if ('A' <= c .and. c <= 'Z') then
+        hasUpper = .true.
+        exit
+      end if
     end do
-  end function countUpper
+  end function hasUpper
 
   function hey(statement)
     character(100) :: hey
@@ -50,12 +57,12 @@ contains
     logical :: question
     logical :: shout
 
-    if (countNonWhitespace(statement) == 0) then
+    if (.not. hasNonWhitespace(statement)) then
       hey = "Fine. Be that way!"
     else
       l = len(trim(statement))
       question = (statement(l:l) == "?")
-      shout = (countLower(statement) == 0 .and. countUpper(statement) > 0)
+      shout = (.not. hasLower(statement) .and. hasUpper(statement))
       if (shout .and. question) then
         hey = "Calm down, I know what I'm doing!"
       else if (shout) then
