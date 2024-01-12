@@ -1,13 +1,12 @@
 import scala.util.Try
 
 object RnaTranscription {
-  def complement(nucleotide: Char): Char = nucleotide match {
-    case 'G' => 'C'
-    case 'C' => 'G'
-    case 'T' => 'A'
-    case 'A' => 'U'
+  def complement(nucleotide: Char): String = nucleotide match {
+    case 'G' => "C"
+    case 'C' => "G"
+    case 'T' => "A"
+    case 'A' => "U"
   }
 
-  def toRna(sequence: String): Option[String] =
-    Try(sequence.map(c => complement(c)).mkString).toOption
+  def toRna(sequence: String): Option[String] = Try(sequence.flatMap(c => complement(c))).toOption
 }
