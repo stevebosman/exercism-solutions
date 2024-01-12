@@ -1,5 +1,5 @@
-import java.time.{Duration, LocalDate, LocalDateTime}
-import java.time.temporal.{ChronoUnit, TemporalAmount, TemporalUnit}
+import java.time.{LocalDate, LocalDateTime}
+import java.time.temporal.ChronoUnit
 
 object Gigasecond {
   def add(startDate: LocalDate): LocalDateTime = add(startDate.atStartOfDay)
