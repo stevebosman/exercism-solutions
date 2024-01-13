@@ -15,7 +15,5 @@ object Sieve {
     }
   }
 
-  def primes(n: Int): List[Int] = sieve(n, 2, Array.fill(n - 1) {
-    false
-  })
+  def primes(n: Int): List[Int] = sieve(n, 2, Array.fill(n - 1)(false))
 }
