@@ -1,4 +1,3 @@
 object Pangrams {
-  def isPangram(input: String): Boolean = input.toLowerCase.filter(c => c >= 'a' && c <= 'z').toSet.size == 26
+  def isPangram(input: String): Boolean = input.toLowerCase.filter(('a' to 'z') contains _).toSet.size == 26
 }
-
