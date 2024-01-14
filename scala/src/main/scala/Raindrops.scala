@@ -1,17 +1,12 @@
 object Raindrops {
   def convert(n: Int): String = {
-    val pling = n%3 == 0
-    val plang = n%5== 0
-    val plong = n%7== 0
-    if (pling || plang || plong) {
-      val sb = new StringBuilder
-      if (pling) sb.append("Pling")
-      if (plang) sb.append("Plang")
-      if (plong) sb.append("Plong")
-      sb.toString
-    } else {
-      n.toString
-    }
+    var result = ""
+    if (n % 3 == 0)
+      result += "Pling"
+    if (n % 5 == 0)
+      result += "Plang"
+    if (n % 7 == 0)
+      result += "Plong"
+    if (result == "") n.toString else result
   }
 }
-
