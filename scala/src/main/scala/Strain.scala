@@ -1,8 +1,4 @@
 object Strain {
-  def keep[T](expectedList: Seq[T], function: T => Boolean): Seq[T] = {
-    expectedList.filter(function.apply).toList
-  }
-  def discard[T](expectedList: Seq[T], function: T => Boolean): Seq[T] = {
-    expectedList.filterNot(function.apply).toList
-  }
+  def keep[T](list: Seq[T], predicate: T => Boolean): Seq[T] = list.filter(predicate)
+  def discard[T](list: Seq[T], predicate: T => Boolean): Seq[T] = list.filterNot(predicate)
 }
