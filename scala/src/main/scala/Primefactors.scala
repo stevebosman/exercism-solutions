@@ -1,19 +1,14 @@
+import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 
 object PrimeFactors {
-  def factors(n: Long): List[Int] = {
-    if (n <= 1) return List()
-    val result: ListBuffer[Int] = ListBuffer()
-    var r = n
-    var d = 2
-    while (r > 1) {
-      if (r % d == 0) {
-        result.addOne(d)
-        r = r / d
-      } else {
-        d += 1
-      }
-    }
-    result.toList
+  @tailrec
+  def factors(n: Long, d: Int = 2, list: ListBuffer[Int] = ListBuffer()): List[Int] = n match {
+    case 1 => list.toList
+    case n if (n % d == 0) =>
+      list.addOne(d)
+      factors(n/d, d, list)
+    case _ =>
+      factors(n, d+1, list)
   }
 }
