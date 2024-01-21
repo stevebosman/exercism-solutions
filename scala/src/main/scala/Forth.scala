@@ -14,7 +14,7 @@ case class Numeric(value: Int) extends Definition {
   override def toString: String = value.toString
 }
 
-case class Add() extends Definition {
+object Add extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -31,7 +31,7 @@ case class Add() extends Definition {
     }
 }
 
-case class Subtract() extends Definition {
+object Subtract extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -48,7 +48,7 @@ case class Subtract() extends Definition {
     }
 }
 
-case class Multiply() extends Definition {
+object Multiply extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -65,7 +65,7 @@ case class Multiply() extends Definition {
     }
 }
 
-case class Divide() extends Definition {
+object Divide extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -84,7 +84,7 @@ case class Divide() extends Definition {
     }
 }
 
-case class Duplicate() extends Definition {
+object Duplicate extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -95,7 +95,7 @@ case class Duplicate() extends Definition {
     }
 }
 
-case class Drop() extends Definition {
+object Drop extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -106,7 +106,7 @@ case class Drop() extends Definition {
     }
 }
 
-case class Swap() extends Definition {
+object Swap extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -120,7 +120,7 @@ case class Swap() extends Definition {
     }
 }
 
-case class Over() extends Definition {
+object Over extends Definition {
   override def evaluate(state: Either[ForthError, ForthEvaluatorState]): Either[ForthError, ForthEvaluatorState] =
     state.asInstanceOf[Either[ForthError, ForthState]] match {
       case Right(x) => x.stack match {
@@ -159,14 +159,14 @@ class Forth extends ForthEvaluator {
         case s if s.matches("\\d+") => evalAll(text.tail, Numeric(s.toInt).evaluate(state), userWords)
         case s if userWords.contains(s) => evalAll(userWords(s) ++ text.tail, state, userWords)
         case s if s.startsWith(":") && s.length > 1 => evalAll(text.tail, state, addUserWordDetails(s.split(" ").toList.tail, userWords))
-        case "+" => evalAll(text.tail, Add().evaluate(state), userWords)
-        case "-" => evalAll(text.tail, Subtract().evaluate(state), userWords)
-        case "*" => evalAll(text.tail, Multiply().evaluate(state), userWords)
-        case "/" => evalAll(text.tail, Divide().evaluate(state), userWords)
-        case "dup" => evalAll(text.tail, Duplicate().evaluate(state), userWords)
-        case "drop" => evalAll(text.tail, Drop().evaluate(state), userWords)
-        case "swap" => evalAll(text.tail, Swap().evaluate(state), userWords)
-        case "over" => evalAll(text.tail, Over().evaluate(state), userWords)
+        case "+" => evalAll(text.tail, Add.evaluate(state), userWords)
+        case "-" => evalAll(text.tail, Subtract.evaluate(state), userWords)
+        case "*" => evalAll(text.tail, Multiply.evaluate(state), userWords)
+        case "/" => evalAll(text.tail, Divide.evaluate(state), userWords)
+        case "dup" => evalAll(text.tail, Duplicate.evaluate(state), userWords)
+        case "drop" => evalAll(text.tail, Drop.evaluate(state), userWords)
+        case "swap" => evalAll(text.tail, Swap.evaluate(state), userWords)
+        case "over" => evalAll(text.tail, Over.evaluate(state), userWords)
         case ";" => evalAll(text.tail, state, userWords)
         case s =>
           println(s)
