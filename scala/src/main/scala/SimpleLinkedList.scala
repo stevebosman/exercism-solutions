@@ -7,19 +7,21 @@ trait SimpleLinkedList[T] {
   def toSeq: Seq[T]
 }
 
-class LinkedList[T](seq: Seq[T]) extends SimpleLinkedList[T] {
-  private val list = seq.toList
+class MyLinkedList[T](data: Seq[T]) extends SimpleLinkedList[T] {
+  override def isEmpty: Boolean = data.isEmpty
 
-  def isEmpty = list.isEmpty
-  def value = list.head
-  def add(item: T):SimpleLinkedList[T] = new LinkedList[T](list :+ item)
-  def next = new LinkedList(list.tail)
-  def reverse = new LinkedList(list.reverse)
-  def toSeq = list
+  override def value: T = data.head
+
+  override def add(item: T): SimpleLinkedList[T] = SimpleLinkedList(data :+ item: _*)
+
+  override def next: SimpleLinkedList[T] = SimpleLinkedList(data.tail: _*)
+
+  override def reverse: SimpleLinkedList[T] = SimpleLinkedList(data.reverse: _*)
+
+  override def toSeq: Seq[T] = data
 }
 
 object SimpleLinkedList {
-  def apply[T](ts: T*): SimpleLinkedList[T] = fromSeq[T](ts.toSeq)
-
-  def fromSeq[T](seq: Seq[T]): SimpleLinkedList[T] = new LinkedList[T](seq)
+  def apply[T](ts: T*): SimpleLinkedList[T] = fromSeq[T](ts)
+  def fromSeq[T](seq: Seq[T]): SimpleLinkedList[T] = new MyLinkedList[T](seq)
 }
