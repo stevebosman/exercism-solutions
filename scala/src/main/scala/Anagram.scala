@@ -1,6 +1,6 @@
 object Anagram {
   private def isAnagram(str: String, potential: String):Boolean =
-    !str.equals(potential) && str.sorted.equals(potential.sorted)
+    str != potential && str.sorted == potential.sorted
 
   def findAnagrams(str: String, potentials: List[String]): List[String] = {
     val lower = str.toLowerCase()
