@@ -9,14 +9,12 @@ object AllYourBase {
   }
 
   def rebase(startBase: Int, digits: List[Int], endBase: Int): Option[List[Int]] =
-    if (startBase < 2 || endBase < 2)
+    if (startBase < 2 || endBase < 2 || digits.exists(d => d<0 || d>=startBase))
       None
     else {
       val base10 = toInt(startBase, digits)
       if (base10 == 0)
         Some(List(0))
-      else if (digits.min < 0 || digits.max >= startBase)
-        None
       else
         Some(toNewBase(base10, endBase).reverse)
     }
