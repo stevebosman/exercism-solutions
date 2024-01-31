@@ -5,9 +5,13 @@ object Sublist extends Enumeration {
     if (list1 == list2) Equal
     else if (list1.isEmpty) Sublist
     else if (list2.isEmpty) Superlist
-    else if (list1.length < list2.length && list2.sliding(list1.length).contains(list1)) Sublist
-    else if (list1.length > list2.length && list1.sliding(list2.length).contains(list2)) Superlist
+    else if (isSubList(list1, list2)) Sublist
+    else if (isSubList(list2, list1)) Superlist
     else Unequal
+  }
+
+  private def isSubList(list1: List[Int], list2: List[Int]) = {
+    list2.sliding(list1.length).contains(list1)
   }
 }
 
