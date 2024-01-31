@@ -1,5 +1,7 @@
-object Sublist {
-  def sublist(list1: List[Int], list2: List[Int]): SublistType = {
+object Sublist extends Enumeration {
+  val Equal, Unequal, Sublist, Superlist = Value
+
+  def sublist(list1: List[Int], list2: List[Int]): Value = {
     if (list1 == list2) Equal
     else if (list1.isEmpty) Sublist
     else if (list2.isEmpty) Superlist
@@ -7,11 +9,5 @@ object Sublist {
     else if (list1.length > list2.length && list1.sliding(list2.length).contains(list2)) Superlist
     else Unequal
   }
-
-  def Equal: SublistType = SublistType(1)
-  def Sublist: SublistType = SublistType(2)
-  def Superlist: SublistType = SublistType(3)
-  def Unequal: SublistType = SublistType(4)
 }
 
-case class SublistType(id: Int)
