@@ -1,34 +1,27 @@
+import scala.util.Try
+
 case class PalindromeProducts(start: Int, end: Int) {
 
-  def smallest: Option[(Int, Set[(Int, Int)])] = {
-    if (start > end) return None
+  def smallest: Option[(Int, Set[(Int, Int)])] = Try {
+      val head = findPalindromes.head
+      (head._1, head._2.map(e => (e._2, e._3)).toSet)
+    }.toOption
 
-    val palindromes = findPalindromes
-    if (palindromes.isEmpty) return None
+  def largest: Option[(Int, Set[(Int, Int)])] = Try {
+    val last = findPalindromes.last
+    (last._1, last._2.map(e => (e._2, e._3)).toSet)
+  }.toOption
 
-    val seeking = palindromes.map(e => e._1 * e._2).min
 
-    Some((seeking, palindromes.filter(e => e._1 * e._2 == seeking).toSet))
+  private def isPalindrome(value: Int): Boolean = {
+    val s = value.toString
+    s == s.reverse
   }
 
-  def largest: Option[(Int, Set[(Int, Int)])] = {
-    if (start > end) return None
+  private def findPalindromesN(i: Int): Seq[(Int, Int, Int)] =
+    (i to end).filter(j => isPalindrome(i * j)).map(j => (i * j, i, j))
 
-    val palindromes = findPalindromes
-    if (palindromes.isEmpty) return None
-
-    val seeking = palindromes.map(e => e._1 * e._2).max
-
-    Some((seeking, palindromes.filter(e => e._1 * e._2 == seeking).toSet))
-  }
-
-  private def isPalindrome(value: Int): Boolean =
-    value == value.toString.reverse.toInt
-
-  private def findPalindromesN(i: Int): Seq[(Int, Int)] =
-    (i to end).filter(j => isPalindrome(i * j)).map(j => (i, j))
-
-  private def findPalindromes: Seq[(Int, Int)] = {
-    (start to end).flatMap(i => findPalindromesN(i))
+  private def findPalindromes = {
+    (start to end).flatMap(i => findPalindromesN(i)).groupBy(_._1).toIndexedSeq.sortBy(_._1)
   }
 }
