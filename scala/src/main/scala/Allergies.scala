@@ -1,13 +1,6 @@
 object Allergen extends Enumeration {
   type Allergen = Value
-  val Eggs: Allergen = Value(0)
-  val Peanuts: Allergen = Value(1)
-  val Shellfish: Allergen = Value(2)
-  val Strawberries: Allergen = Value(3)
-  val Tomatoes: Allergen = Value(4)
-  val Chocolate: Allergen = Value(5)
-  val Pollen: Allergen = Value(6)
-  val Cats: Allergen = Value(7)
+  val Eggs, Peanuts, Shellfish, Strawberries, Tomatoes, Chocolate, Pollen, Cats: Allergen = Value
 }
 
 object Allergies {
@@ -18,4 +11,3 @@ object Allergies {
     Allergen.values.filter(a => allergicTo(a, value)).toList
 
 }
-
