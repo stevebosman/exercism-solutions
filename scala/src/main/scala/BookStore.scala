@@ -4,7 +4,7 @@ object BookStore {
   private val PriceWithDiscount = Map(1 -> 800, 2 -> 1520, 3 -> 2160, 4 -> 2560, 5 -> 3000)
 
   private def bookCounts(prices: Seq[Int]): Map[Int, Int] =
-    (1 to 5).map(c => c -> prices.count(p => p == c)).filter(e => e._2 > 0).toMap
+    prices.groupBy(identity).map(e => e._1 -> e._2.size).filter(e => e._2 > 0)
 
   private def swap3sAnd5sFor4s(i: Int, discountGroups: Map[Int, Int]): Map[Int, Int] =
     discountGroups + (3 -> {
