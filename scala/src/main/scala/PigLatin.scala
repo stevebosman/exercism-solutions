@@ -4,7 +4,6 @@ object PigLatin {
   private def translateWord(text: String): String = {
     if (Vowels.contains(text.head) || text.startsWith("xr") || text.startsWith("yt")) text
     else if (text.startsWith("qu")) text.substring(2) + "qu"
-    else if (text.head == 'q') text.tail + "q"
     else if (text.tail == "y") text.tail + text.head
     else {
       val cluster = text.head + text.tail.takeWhile(c => !Vowels.contains(c) && c != 'y')
