@@ -17,7 +17,7 @@ object Dominoes {
       }
       //reversed
       for (a <- input.filter(i => i._2 == current.last._2)) {
-        val option = chain(removeFirst(input, a), current :+ (a._2, a._1))
+        val option = chain(removeFirst(input, a), current :+ a.swap)
         if (option.isDefined) return option
       }
       None
