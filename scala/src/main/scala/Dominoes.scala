@@ -1,26 +1,19 @@
 object Dominoes {
-  def chain(input: List[(Int, Int)], current: List[(Int, Int)] = List()): Option[List[(Int, Int)]] = {
-    def removeFirst(input: List[(Int, Int)], v: (Int, Int)): List[(Int, Int)] = {
-      val i = input.indexOf(v)
-      input.zipWithIndex.filter(_._2!=i).map(_._1)
+  def loopify(input: List[(Int, Int)]): List[(Int, Int)] = {
+    input.foldLeft(List[(Int, Int)]()) { (acc, domino) =>
+      (acc.lastOption, domino) match {
+        case (Some((_, s)), d) if s == d._1 => acc :+ d
+        case (Some((_, s)), d) if s == d._2 => acc :+ d.swap
+        case (None, d) => acc :+ d
+        case _ => return List()
+      }
     }
+  }
 
+  def chain(input: List[(Int, Int)]): Option[List[(Int, Int)]] = {
     if (input.isEmpty)
-      if (current.isEmpty || current.head._1 == current.last._2) Some(current)
-      else None
-    else if (current.isEmpty)
-      chain(input.tail, current :+ input.head)
-    else {
-      for (a <- input.filter(i => i._1 == current.last._2)) {
-        val option = chain(removeFirst(input, a), current :+ a)
-        if (option.isDefined) return option
-      }
-      //reversed
-      for (a <- input.filter(i => i._2 == current.last._2)) {
-        val option = chain(removeFirst(input, a), current :+ a.swap)
-        if (option.isDefined) return option
-      }
-      None
-    }
+      Some(input)
+    else
+      input.permutations.map(p => loopify(p)).find(l => l.nonEmpty && l.head._1 == l.last._2)
   }
 }
