@@ -1,4 +1,10 @@
 object Minesweeper {
+  private val Offsets = Seq(
+    (-1, -1), (-1, 0), (-1, 1),
+    (0, -1), (0, 1),
+    (1, -1), (1, 0), (1, 1)
+  )
+
   def annotate(list: List[String]): List[String] = {
     val array = list.map(_.toArray).toArray
 
@@ -10,7 +16,7 @@ object Minesweeper {
     }
 
     def neighbourCount(row: Int, column: Int): Int = {
-      minesAt(row - 1, column - 1) + minesAt(row - 1, column) + minesAt(row - 1, column + 1) + minesAt(row, column - 1) + minesAt(row, column + 1) + minesAt(row + 1, column - 1) + minesAt(row + 1, column) + minesAt(row + 1, column + 1)
+      Offsets.map { case (dr, dc) => minesAt(row + dr, column + dc) }.sum
     }
 
     def neighbourCountChar(row: Int, column: Int): Char = neighbourCount(row, column) match {
