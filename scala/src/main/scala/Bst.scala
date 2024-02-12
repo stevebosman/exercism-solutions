@@ -1,22 +1,21 @@
-case class Bst(root: Int, left: Option[Bst] = None, right: Option[Bst] = None) {
-  def value: Int = root
-  def insert(value: Int): Bst = {
-    if (value.compare(root) <= 0) {
-      if (left.isEmpty) Bst(root, Some(Bst(value)), right)
-      else Bst(root, Some(left.get.insert(value)), right)
+case class Bst[A:Ordering](value: A, left: Option[Bst[A]] = None, right: Option[Bst[A]] = None) {
+  def insert(newValue: A): Bst[A] = {
+    if (implicitly[Ordering[A]].lteq(newValue, value)) {
+      if (left.isEmpty) Bst(value, Some(Bst(newValue)), right)
+      else Bst(value, Some(left.get.insert(newValue)), right)
     } else {
-      if (right.isEmpty) Bst(root, left, Some(Bst(value)))
-      else Bst(root, left, Some(right.get.insert(value)))
+      if (right.isEmpty) Bst(value, left, Some(Bst(newValue)))
+      else Bst(value, left, Some(right.get.insert(newValue)))
     }
   }
 }
 
 object Bst {
-  def fromList(list: List[Int]): Bst = {
+  def fromList[A:Ordering](list: List[A]): Bst[A] = {
     list.tail.foldLeft(Bst(list.head))((acc,v) => acc.insert(v))
   }
 
-  def toList(bst: Bst): List[Int] = (bst.left, bst.value, bst.right) match {
+  def toList[A:Ordering](bst: Bst[A]): List[A] = (bst.left, bst.value, bst.right) match {
     case (Some(left), v, Some(right)) => toList(left) ++ List(v) ++ toList(right)
     case (Some(left), v, None) => toList(left) ++ List(v)
     case (None, v, Some(right)) => List(v) ++ toList(right)
