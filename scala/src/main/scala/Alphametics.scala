@@ -11,9 +11,10 @@ case class Puzzle(left: Seq[String], right: String, chars: Seq[Char]) {
   }
 
   private def tryPermutation(permutation: IndexedSeq[Char]): Option[Map[Char, Int]] = {
+    val z = permutation.indexOf('0')
+    if (z>=0 && bannedZero.contains(chars(z))) return None
     val lookup: Map[Char, Char] = chars.zip(permutation).map(e => e._1 -> e._2).toMap
-    if (bannedZero.exists(c => lookup(c) == '0')) None
-    else if (eval(lookup)) Some(lookup.map(e => e._1 -> (e._2 - '0')))
+    if (eval(lookup)) Some(lookup.map(e => e._1 -> (e._2 - '0')))
     else None
   }
 
