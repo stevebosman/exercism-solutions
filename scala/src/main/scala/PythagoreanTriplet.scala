@@ -1,5 +1,10 @@
+import scala.collection.mutable.ListBuffer
+import scala.math.{floor, sqrt}
+
 object PythagoreanTriplet {
-  type Triple = (Int, Int, Int)
+  private type Triple = (Int, Int, Int)
+
+  private val Scale = 2 + sqrt(2)
 
   private def square(v: Int): Int = v * v
 
@@ -15,12 +20,19 @@ object PythagoreanTriplet {
       if x < y && y < z && isPythagorean(tuple)
     } yield tuple
 
-  def pythagoreanTripletsSum(sum: Int): Seq[Triple] =
-    for {
-      x <- 1 to sum / 3
-      z <- x + 2 until sum - x
-      y = sum - z - x
-      tuple = (x, y, z)
-      if x < y && y < z && isPythagorean(tuple)
-    } yield tuple
+  def pythagoreanTripletsSum(sum: Int): Seq[Triple] = {
+    val max:Int = floor(sum / Scale).toInt
+    val list: ListBuffer[Triple] = ListBuffer()
+    for (x:Int <- 3 to max) {
+      val sum_minus_x:Int = sum - x
+      val numerator:Int = x * x + sum_minus_x * sum_minus_x
+      val denominator:Int = 2 * sum_minus_x
+      if (numerator % denominator == 0) {
+        val z = numerator / denominator
+        val y = sum - x - z
+        list.addOne((x,y,z))
+      }
+    }
+    list.toList
+  }
 }
